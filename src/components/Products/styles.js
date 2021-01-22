@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-    
     toolbar: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
@@ -9,6 +8,6 @@ export default makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     root: {
-        flexGrow: 1
-    }
+        flexGrow: 1,
+    },
 }));
