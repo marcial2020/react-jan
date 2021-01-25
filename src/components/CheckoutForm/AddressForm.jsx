@@ -47,7 +47,7 @@ const AddressForm = ({checkoutToken, next}) => {
     }, []);
 
     useEffect(() => {
-        if(shippingCountry) fetchSubdivisions(shippingCountry.id);
+        if(shippingCountry) fetchSubdivisions(shippingCountry);
     }, [shippingCountry]);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const AddressForm = ({checkoutToken, next}) => {
                     
                         <Grid item xs={12} sm={6}>
                             <InputLabel>Shipping Country</InputLabel>
-                            <Select value={shippingCountries} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
+                            <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
                                 {countries.map((country) => (
                                     <MenuItem key={country.id} value={country.id}>
                                         {country.label}
