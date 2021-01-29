@@ -19,7 +19,7 @@ const PaymentForm = ({checkoutToken, shippingData, backStep, onCaptureCheckout, 
         const { error, paymentMethod} = await stripe.createPaymentMethod({type: 'card', card: cardElement});
 
         if (error) {
-            console.log(error)
+            console.log('[error]',error)
         } else {
             const orderData = {
                 line_items: checkoutToken.live.line_items,
@@ -63,7 +63,7 @@ const PaymentForm = ({checkoutToken, shippingData, backStep, onCaptureCheckout, 
                             <br /> <br />
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <Button variant='outlined' onClick={backStep}>Back</Button>
-                                <Button variant='contained'disabled={!stripe} color="primary">
+                                <Button type="submit" variant="contained" disabled={!stripe} color="primary">
                                     Pay {checkoutToken.live.subtotal.formatted_with_symbol}
                                 </Button>
                             </div>
@@ -72,7 +72,7 @@ const PaymentForm = ({checkoutToken, shippingData, backStep, onCaptureCheckout, 
                 </ElementsConsumer>
             </Elements>
         </>
-    )
-}
+    );
+};
 
 export default PaymentForm

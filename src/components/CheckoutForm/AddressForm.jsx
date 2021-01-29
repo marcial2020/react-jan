@@ -5,6 +5,7 @@ import FormInput from './CustomTextField';
 import {commerce} from '../../lib/commerce';
 import {Link} from 'react-router-dom';
 
+
 const AddressForm = ({checkoutToken, next}) => {
 
     const [shippingCountries, setShippingCountries] = useState([]);
@@ -13,20 +14,19 @@ const AddressForm = ({checkoutToken, next}) => {
     const [shippingSubdivision, setShippingSubdivision] = useState('');
     const [shippingOptions, setShippingOptions] = useState([]);
     const [shippingOption, setShippingOption] = useState('');
-
-
     const methods = useForm();
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({id: code, label: name}));
     const subdivisions = Object.entries(shippingSubdivisions).map(([code, name]) => ({id: code, label: name}));
     const options = shippingOptions.map((s0) => ({ id: s0.id, label: `${s0.description} - (${s0.price.formatted_with_symbol})` }))
     
-    const fetchShippingCountries = async (checkoutTokenId) =>{
-        const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId);
-        
-        setShippingCountries(countries);
-        setShippingCountry(Object.keys(countries)[0]);
-    }
+
+    const fetchShippingCountries = async (checkoutTokenId) => {
+    const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+
+    setShippingCountries(countries);
+    setShippingCountry(Object.keys(countries)[0]);
+  };
 
     const fetchSubdivisions = async (countryCode) =>{
         const {subdivisions} = await commerce.services.localeListSubdivisions(countryCode);
@@ -35,11 +35,11 @@ const AddressForm = ({checkoutToken, next}) => {
         setShippingSubdivision(Object.keys(subdivisions)[0]);
     }
 
-    const fetchShippingOptions = async (checkoutTokenId, country, region = null) => {
-        const options = await commerce.checkout.getShippingOptions(checkoutTokenId, {country, region});
+    const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
+        const options = await commerce.checkout.getShippingOptions(checkoutTokenId, {country, region: stateProvince});
         
         setShippingOptions(options);
-        setShippingOption(options[0].id);
+        setShippingOption(options[0]);
     }
 
     useEffect(() => {
@@ -101,9 +101,9 @@ const AddressForm = ({checkoutToken, next}) => {
                         </Grid>
                     </Grid>
                     <br />
-                    <div style={{display: 'flex', justtifyContent: 'space-between'}}>
-                        <button component={Link} to='/cart' variant='outlined'>back to Cart</button>
-                        <button type="submit" variant='outlined' color="primary">Next</button>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Button component={Link}  variant='outlined' to='/cart'>Back to Cart</Button>
+                        <Button type="submit" variant='contained' color="primary">Next</Button>
                     </div>
                 </form>
                 
